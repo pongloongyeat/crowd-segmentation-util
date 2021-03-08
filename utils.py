@@ -1,3 +1,4 @@
+import copy
 import cv2
 import numpy as np
 from scipy.spatial import KDTree
@@ -72,6 +73,7 @@ def gen_crowdseg(image, dmap):
     valid_points = [i > 0 for i in dmap]
 
     # Multiply valid points to "segment" image.
-    for i in range(0, 3): image[:, :, i] = image[:, :, i] * valid_points
+    result = copy.deepcopy(image)
+    for i in range(0, 3): result[:, :, i] = result[:, :, i] * valid_points
 
-    return image
+    return result
