@@ -58,7 +58,7 @@ def gen_density_map_gaussian(im, points, sigma=4):
     density_map = density_map / (np.sum(density_map / num_gt))
     return density_map
 
-def gen_crowdseg(image, dmap):
+def gen_crowdseg(image, dmap, threshold=0):
     """
     Generates a crowd segmentation by multiplying an
     image and its density map element wise.
@@ -70,7 +70,7 @@ def gen_crowdseg(image, dmap):
     """
 
     # Convert all valid points to a 1
-    valid_points = [i > 0 for i in dmap]
+    valid_points = [i > threshold for i in dmap]
 
     # Multiply valid points to "segment" image.
     result = copy.deepcopy(image)
