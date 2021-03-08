@@ -68,11 +68,10 @@ def gen_crowdseg(image, dmap):
     returns: Numpy array of the segmented crowd.
     """
 
-    if len(image) > 1:
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
     # Convert all valid points to a 1
     valid_points = [i > 0 for i in dmap]
 
     # Multiply valid points to "segment" image.
-    return valid_points * image
+    for i in range(0, 3): image[:, :, i] = image[:, :, i] * valid_points
+
+    return image
